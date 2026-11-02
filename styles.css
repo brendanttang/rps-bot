@@ -1,0 +1,164 @@
+:root {
+    --my-black: rgb(26, 26, 26);
+    --my-darkergray: rgb(210, 204, 192);
+    --my-darkgray: rgb(227, 222, 212);
+    --my-gray: rgb(240, 236, 228);
+    --my-lightgray: rgb(253, 251, 247);
+    --my-red: rgb(235, 64, 52);
+    --my-yellow: rgb(245, 171, 0);
+    --my-green: rgb(46, 184, 92);
+    --my-blue: rgb(217, 83, 30);
+}
+:root.dark {
+    --my-black: rgb(240, 242, 245);
+    --my-darkergray: rgb(30, 34, 40);
+    --my-darkgray: rgb(44, 48, 56);
+    --my-gray: rgb(33, 37, 43);
+    --my-lightgray: rgb(22, 24, 29);
+    --my-red: rgb(255, 92, 80);
+    --my-yellow: rgb(255, 193, 7);
+    --my-green: rgb(68, 214, 112);
+    --my-blue: rgb(51, 168, 204);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html {
+    font-size: max(9px, min(16px, calc(100dvh / 58), calc(100vw / 33.75)));
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: center;
+    grid-template-columns: minmax(0.5rem, 1fr) minmax(0, 32rem) minmax(0.5rem, 1fr);
+
+    color: var(--my-black);
+
+    min-height: 100dvh;
+    background-color: var(--my-lightgray);
+}
+
+button {
+    color: var(--my-black);
+    cursor: pointer;
+
+    background-color: var(--my-darkgray);
+    border-color: var(--my-darkgray);
+}
+
+@media (hover: hover) {
+    button:hover {
+        background-color: var(--my-darkergray);
+        border-color: var(--my-darkergray);
+        transform: scale(1.03);
+        transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+:root .sun-icon {
+    display: none;
+}
+:root .moon-icon {
+    display: block;
+}
+
+:root.dark .sun-icon {
+    display: block;
+}
+:root.dark .moon-icon {
+    display: none;
+}
+
+.heading {
+    grid-area: 1 / 1 / 2 / 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem 4.5rem;
+
+    background-color: var(--my-lightgray);
+}
+.title {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.main {
+    grid-area: 2 / 2 / 3 / 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.results {
+    display: flex;
+    justify-content: space-between;
+}
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 1.5rem 0.3rem 0rem 0.3rem;
+}
+.result-title {
+    font-size: 1rem;
+}
+.result-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+#result-win {
+    color: var(--my-green);
+}
+#result-draw {
+    color: var(--my-yellow);
+}
+#result-lose {
+    color: var(--my-red);
+}
+
+.status {
+    text-align: center;
+    font-size: 0.9rem;
+
+    margin: 1rem;
+}
+
+.reset {
+    display: flex;
+    justify-content: center;
+}
+.reset-button {
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    margin: 1rem;
+}
