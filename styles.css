@@ -153,12 +153,49 @@ button {
     margin: 1rem;
 }
 
-.reset {
+.battle {
     display: flex;
-    justify-content: center;
+    gap: 1rem;
+    justify-content: space-between;
+    border-bottom: 8px solid var(--my-black);
+    margin-bottom: 1rem;
 }
-.reset-button {
+
+.battleicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    background-color: var(--my-gray);
+    border: 2px solid transparent;
+}
+
+.battleicon svg {
+    width: 50%;
+    height: 50%;
+}
+
+.choices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+}
+
+.choice {
     font-size: 0.9rem;
-    padding: 0.3rem;
-    margin: 1rem;
+    aspect-ratio: 2.5 / 1;
+    height: 2.75rem;
+}
+
+.battleicon.win {
+    border-color: var(--my-green);
+}
+
+.battleicon.lose {
+    border-color: var(--my-red);
+}
+
+.battleicon.draw {
+    border-color: var(--my-yellow);
 }

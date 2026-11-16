@@ -6,6 +6,7 @@
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
+</head>
 <body>
     <div class="container">
         <button class="theme-toggle" id="theme-toggle">
@@ -31,16 +32,16 @@
                 </div>
             </div>
             <div class="status">
-                <p id="status-text">[TEMP] select rock, paper, or scissors</p>
+                <p id="status-text">Select Rock, Paper, or Scissors to play!</p>
             </div>
             <div class="battle">
-                <!-- BATTLE GOES HERE -->
+                <div class="battleicon" id="you-i"></div>
+                <div class="battleicon" id="cpu-i"></div>
             </div>
             <div class="choices">
-                <!-- CHOICES GO HERE -->
-            </div>
-            <div class="reset">
-                <button class="reset-button" id="reset-button">Reset</button>
+                <button class="choice" id="rock">Rock</button>
+                <button class="choice" id="paper">Paper</button>
+                <button class="choice" id="scissors">Scissors</button>
             </div>
         </main>
     </div>
