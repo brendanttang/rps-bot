@@ -13,6 +13,6 @@ A very simple Rock Paper Scissors web application for **single player**, where t
   <img src="screenshots/ss-dark.png" width="49%" />
 </p>
 
-## Demo <a href="https://brendanttang.github.io/simple-ttt/">here</a>
+## Demo <a href="https://brendanttang.github.io/rps-bot/">here</a>
 
->You can also find a python port of the bot in this repository, which was used for testing the accuracy of the bot against real player datasets. 
+>This repository also contains a python port of the bot, which was used for testing its accuracy against real player datasets. 
