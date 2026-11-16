@@ -9,8 +9,14 @@ const cpuIcon = document.getElementById("cpu-i");
 
 const MOVES = ["rock", "paper", "scissors"];
 
+// BEATEN_BY[m] is the move that beats m
 const BEATEN_BY = { rock: "paper", paper: "scissors", scissors: "rock" };
 
+// result from the player's point of view -> the computer's point of view
+const OPPOSITE = { win: "lose", lose: "win", draw: "draw" };
+
+// order-1 Markov chain: transitions[prev][next] = how often the player
+// played `next` right after `prev`
 let transitions;
 let lastPlayerMove;
 
@@ -34,13 +40,18 @@ function addScore(key) {
     document.getElementById(`result-${key}`).textContent = scores[key];
 }
 
+const capitalize = (word) => word[0].toUpperCase() + word.slice(1);
+
 function resetGame() {
+    initModel();
     scores.win = scores.draw = scores.lose = 0;
     for (const key in scores) {
         document.getElementById(`result-${key}`).textContent = 0;
     }
     youIcon.innerHTML = "";
     cpuIcon.innerHTML = "";
+    youIcon.classList.remove("win", "lose", "draw");
+    cpuIcon.classList.remove("win", "lose", "draw");
     setStatus("Select Rock, Paper, or Scissors to play!");
 }
 
@@ -73,12 +84,13 @@ function randomMove() {
     return MOVES[Math.floor(Math.random() * MOVES.length)];
 }
 
+// returns the predicted next player move, or null if there's no data yet
 function predictPlayerMove() {
     if (lastPlayerMove === null) return null;          // no history yet
 
     const row = transitions[lastPlayerMove];
     const max = Math.max(...Object.values(row));
-    if (max === 0) return null;                        // seen this row never
+    if (max === 0) return null;                        // never seen this row
 
     const candidates = MOVES.filter((m) => row[m] === max);
     return candidates[Math.floor(Math.random() * candidates.length)];
@@ -96,14 +108,11 @@ function learn(playerMove) {
     lastPlayerMove = playerMove;
 }
 
+// "win", "draw" or "lose", from the player's point of view
 function getResult(playerMove, computerMove) {
     if (playerMove === computerMove) return "draw";
     return BEATEN_BY[computerMove] === playerMove ? "win" : "lose";
 }
-
-const capitalize = (word) => word[0].toUpperCase() + word.slice(1);
-
-const OPPOSITE = { win: "lose", lose: "win", draw: "draw" };
 
 function setOutcome(element, outcome) {
     element.classList.remove("win", "lose", "draw");
@@ -111,15 +120,14 @@ function setOutcome(element, outcome) {
 }
 
 function play(playerMove) {
-    const computerMove = chooseComputerMove();
-    learn(playerMove);
+    const computerMove = chooseComputerMove();   // decide first...
+    learn(playerMove);                           // ...then update the model
 
     youIcon.innerHTML = ICONS[playerMove];
     cpuIcon.innerHTML = ICONS[computerMove];
 
     const result = getResult(playerMove, computerMove);
     addScore(result);
-
     setOutcome(youIcon, result);
     setOutcome(cpuIcon, OPPOSITE[result]);
 
@@ -131,23 +139,12 @@ function play(playerMove) {
         lose: `${cpu} beats ${you}. You lose.`
     };
     setStatus(messages[result]);
+
+    console.log(transitions);                    // watch it learn
 }
 
 MOVES.forEach((move) => {
     document.getElementById(move).addEventListener("click", () => play(move));
 });
-
-function resetGame() {
-    initModel();                                  // <-- add this
-    scores.win = scores.draw = scores.lose = 0;
-    for (const key in scores) {
-        document.getElementById(`result-${key}`).textContent = 0;
-    }
-    youIcon.innerHTML = "";
-    cpuIcon.innerHTML = "";
-    setStatus("Select Rock, Paper, or Scissors to play!");
-    youIcon.classList.remove("win", "lose", "draw");
-    cpuIcon.classList.remove("win", "lose", "draw");
-}
 
 resetGame();

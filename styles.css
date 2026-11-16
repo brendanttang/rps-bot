@@ -30,7 +30,7 @@
 }
 
 html {
-    font-size: max(9px, min(16px, calc(100dvh / 58), calc(100vw / 33.75)));
+    font-size: max(9px, min(16px, calc(100dvh / 42), calc(100vw / 33.75)));
 }
 
 .container {
@@ -48,6 +48,7 @@ html {
 button {
     color: var(--my-black);
     cursor: pointer;
+    touch-action: manipulation; /* no double-tap zoom when spamming moves on mobile */
 
     background-color: var(--my-darkgray);
     border-color: var(--my-darkgray);
@@ -156,7 +157,6 @@ button {
 .battle {
     display: flex;
     gap: 1rem;
-    justify-content: space-between;
     border-bottom: 8px solid var(--my-black);
     margin-bottom: 1rem;
 }
@@ -170,11 +170,13 @@ button {
     background-color: var(--my-gray);
     border: 2px solid transparent;
 }
-
 .battleicon svg {
     width: 50%;
     height: 50%;
 }
+.battleicon.win  { border-color: var(--my-green); }
+.battleicon.lose { border-color: var(--my-red); }
+.battleicon.draw { border-color: var(--my-yellow); }
 
 .choices {
     display: grid;
@@ -186,16 +188,4 @@ button {
     font-size: 0.9rem;
     aspect-ratio: 2.5 / 1;
     height: 2.75rem;
-}
-
-.battleicon.win {
-    border-color: var(--my-green);
-}
-
-.battleicon.lose {
-    border-color: var(--my-red);
-}
-
-.battleicon.draw {
-    border-color: var(--my-yellow);
 }
